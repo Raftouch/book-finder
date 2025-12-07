@@ -10,11 +10,17 @@ app.get("/", (req, res) => {
 
 app.get("/api/books", async (req, res) => {
   try {
-    const query = "the lord of the rings";
+    const query = req.query.q;
+    console.log("query : ", query);
+
+    if (!query) {
+      return res.status(400).send("Missing query parameter");
+    }
+
     const url = `https://openlibrary.org/search.json?q=${query}`;
     const response = await fetch(url);
     const data = await response.json();
-    console.log("data : ", data);
+    res.json(data);
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occured while fetching books");
