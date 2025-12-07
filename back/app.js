@@ -20,7 +20,21 @@ app.get("/api/books", async (req, res) => {
     const url = `https://openlibrary.org/search.json?q=${query}`;
     const response = await fetch(url);
     const data = await response.json();
-    res.json(data);
+
+    const result = {
+      total: data.num_found,
+      books: data.docs.map((book) => ({
+        title: book.title,
+        author: book.author_name,
+        year: book.first_publish_year,
+        cover: book.cover_i
+          ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
+          : null,
+      })),
+    };
+    // book.cover_edition_key
+
+    res.json(result);
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occured while fetching books");
