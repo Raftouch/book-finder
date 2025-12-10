@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Book, BookData } from "../types/book";
 import { apiUrl } from "../utils/api";
+import BookCard from "./BookCard";
 
 interface BookListProps {
   query: string;
@@ -38,11 +39,7 @@ export default function BookList({ query }: BookListProps) {
       {books ? (
         <ul>
           {books.map((book, index) => (
-            <li key={index}>
-              <h3>{book.title}</h3>
-              <p>{book.author?.join(", ")}</p>
-              <p>{book.year}</p>
-            </li>
+            <BookCard key={index} book={book} />
           ))}
         </ul>
       ) : null}
