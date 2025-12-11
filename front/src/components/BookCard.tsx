@@ -10,6 +10,9 @@ export default function BookCard({ book }: BookCardProps) {
       <h3>{book.title}</h3>
       <p>{book.author?.join(", ")}</p>
       <p>{book.year}</p>
+      {book.cover ? (
+        <img src={book.cover} alt="book img" width={114} height={180} />
+      ) : null}
     </li>
   );
 }
