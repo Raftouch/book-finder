@@ -15,31 +15,31 @@ export default function BookList({ query }: BookListProps) {
   const { loading, error, setLoading, setError } =
     useContext(BookFinderContext);
 
-  const getBooks = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const res = await fetch(`${apiUrl}?q=${query}`);
-
-      if (!res.ok) throw new Error("Failed to fetch books");
-
-      const data: BookData = await res.json();
-
-      setBookData(data);
-      setBooks(data.books);
-    } catch (error) {
-      console.error(error);
-      setBooks([]);
-      setError("Something went wrong");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getBooks = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const res = await fetch(`${apiUrl}?q=${query}`);
+
+        if (!res.ok) throw new Error("Failed to fetch books");
+
+        const data: BookData = await res.json();
+
+        setBookData(data);
+        setBooks(data.books);
+      } catch (error) {
+        console.error(error);
+        setBooks([]);
+        setError("Something went wrong");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     getBooks();
-  }, [query, setLoading, setError]);
+  }, [query]);
 
   return (
     <div>
