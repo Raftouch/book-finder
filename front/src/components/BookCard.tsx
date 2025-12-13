@@ -5,6 +5,7 @@ interface BookCardProps {
 }
 
 export default function BookCard({ book }: BookCardProps) {
+  console.log("Book cover : ", book.cover);
   return (
     <li>
       <h3>{book.title}</h3>
@@ -12,7 +13,9 @@ export default function BookCard({ book }: BookCardProps) {
       <p>{book.year}</p>
       {book.cover ? (
         <img src={book.cover} alt="book img" width={114} height={180} />
-      ) : null}
+      ) : (
+        <p>No book cover available</p>
+      )}
     </li>
   );
 }
