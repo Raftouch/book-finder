@@ -42,21 +42,27 @@ export default function BookList({ query }: BookListProps) {
   }, [query]);
 
   return (
-    <div>
-      {loading && <p>Loading... Please wait</p>}
-      {error && <p>{error}</p>}
+    <section className="max-w-7xl mx-auto">
+      <h1 className="text-3xl font-bold mb-2 text-gray-800">Book List</h1>
+      <p className="text-gray-600 mb-6">Total Results: {bookData?.total}</p>
 
-      <h1>Book List</h1>
-      <p>Total Results: {bookData?.total}</p>
-      {books.length > 0 ? (
-        <ul>
+      {loading && (
+        <p className="text-blue-600 font-medium mb-4">Loading... Please wait</p>
+      )}
+
+      {error && <p className="text-red-600 font-medium mb-4">{error}</p>}
+
+      {books.length > 0 && (
+        <ul className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {books.map((book, index) => (
             <BookCard key={index} book={book} />
           ))}
         </ul>
-      ) : (
-        <p>No results found</p>
       )}
-    </div>
+
+      {!loading && books.length === 0 && (
+        <p className="text-gray-500">No results found</p>
+      )}
+    </section>
   );
 }
