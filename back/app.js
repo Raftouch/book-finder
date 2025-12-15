@@ -30,9 +30,7 @@ app.get("/api/books", async (req, res) => {
         title: book.title,
         author: book.author_name,
         year: book.first_publish_year,
-        cover: book.cover_i
-          ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
-          : null,
+        coverId: book.cover_i ?? null,
       })),
     };
     // book.cover_edition_key
