@@ -13,14 +13,16 @@ app.get("/", (req, res) => {
 
 app.get("/api/books", async (req, res) => {
   try {
-    const query = req.query.q;
+    // const query = req.query.q;
+    const { q: query, page = 1, limit = 20 } = req.query;
     console.log("query : ", query);
 
     if (!query) {
       return res.status(400).send("Missing query parameter");
     }
 
-    const url = `https://openlibrary.org/search.json?q=${query}`;
+    const url = `https://openlibrary.org/search.json?q=${query}&page=${page}&limit=${limit}`;
+
     const response = await fetch(url);
     const data = await response.json();
 

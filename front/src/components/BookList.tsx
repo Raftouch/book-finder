@@ -21,7 +21,7 @@ export default function BookList({ query }: BookListProps) {
       setError(null);
 
       try {
-        const res = await fetch(`${apiUrl}?q=${query}`);
+        const res = await fetch(`${apiUrl}?q=${query}&page=1&limit=20`);
 
         if (!res.ok) throw new Error("Failed to fetch books");
 
